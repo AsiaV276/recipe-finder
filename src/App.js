@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, Button, message } from 'antd';
+import TabsCard from './components/recipeCards';
 import './App.css';
-import biscuit from "./images/biscuits.jpg"
-import coffee from "./images/cupcoffee.jpg"
 
 require("dotenv").config();
 
@@ -64,14 +63,16 @@ class App extends Component {
   };
 
 
+
   //keep past searches, click on them to search again?
   //view btn opens full page modal to view larger image and all details
   //save recipe btn, saves all recipes from all searches in a recipe book
   //recipe book routes to a new page
   
+  
   render() {
     var { isloaded, items } = this.state;
-
+    
     if (!isloaded) {
       return (
         <div className="loading">
@@ -105,7 +106,6 @@ class App extends Component {
       return (
         
         <div className="App">
-
           <h1>Recipes</h1>
           <form onSubmit={getSearch} className="search-form">
             <input
@@ -120,40 +120,25 @@ class App extends Component {
             </button>
           </form>
 
-          {/*<div className="recipes">
-            <div className="recipe-box">
-              <div>
-                <h2>**LABEL**</h2>
-                <img
-                  src={coffee}
-                  alt=""
-                  className="recipe-image"
-                ></img>
-              </div>
-              <div>
-                <p>dietlabel</p>
-                <p>Calories: 300</p>
-                <h4 className="ingredients">Ingredients:</h4>
-                <ul className="ingredients">
-                  <li>ingredient</li>
-                  <li>ingredient</li>
-                  <li>ingredient</li>
-                </ul>
-              </div>
-              <p>Cook time: 120 minutes</p>
-              <br />
-              <button className="save-recipe-btn" onClick={this.showModal}>
-                View Recipe
-              </button>
-              <i className="far fa-star fa-3x" onClick={clickFav}></i>
-      </div>*/}
-
-            
-
+         <div className="recipes">
             {items.hits.map((item) => (
               <>
+              <TabsCard
+                  key={item.id}
+                  image={item.recipe.image}
+                  label={item.recipe.label}
+                  ingredients={item.recipe.ingredientLines}
+                  calories={item.recipe.calories.toFixed(0)}
+                  totalTime={item.recipe.totalTime}
+                  servingSize={item.recipe.yield}
+                  dietLabels={item.recipe.dietLabels}
+                  healthLabels={item.recipe.healthLabels}
+                >
+              </TabsCard>
+              
+                
                 {console.log(item.recipe)}
-                <div className="recipe-box">
+                {/*<div className="recipe-box">
                   <div>
                     <h2>{item.recipe.label}</h2>
                     <img
@@ -179,10 +164,14 @@ class App extends Component {
                     View More
                   </button>
                   <i className="far fa-star fa-3x" onClick={clickFav}></i>
-                  {/*<button className="view-btn" onClick={view}>View</button>*/}
-                </div>
+                  <HeartTwoTone twoToneColor="#eb2f96" />
+                  <button className="view-btn" onClick={view}>View</button></div>*/}
+                
               </>
             ))}
+            </div>
+
+
             <Modal
               title="Recipe Label"
               visible={this.state.visible}
