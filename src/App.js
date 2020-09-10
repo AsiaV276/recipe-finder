@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Modal, Button, message } from 'antd';
+import { Modal } from 'antd';
 import TabsCard from './components/recipeCards';
 import './App.css';
 
-require("dotenv").config();
+//require("dotenv").config();
 
 
 class App extends Component {
@@ -42,33 +42,6 @@ class App extends Component {
     }
   }
 
-  showModal = () => {
-    this.setState({
-      visible: true,
-    });
-  }
-
-  handleOk = e => {
-    console.log(e);
-    this.setState({
-      visible: false,
-    });
-  };
-
-  handleCancel = e => {
-    console.log(e);
-    this.setState({
-      visible: false,
-    });
-  };
-
-
-
-  //keep past searches, click on them to search again?
-  //view btn opens full page modal to view larger image and all details
-  //save recipe btn, saves all recipes from all searches in a recipe book
-  //recipe book routes to a new page
-  
   
   render() {
     var { isloaded, items } = this.state;
@@ -89,18 +62,6 @@ class App extends Component {
       const getSearch = (e) => {
         e.preventDefault();
         this.setState({ query: this.state.search });
-      };
-
-      const clickFav = (e) => {
-        var starIcon = document.getElementsByClassName("fa-star");
-        console.log(starIcon)
-        console.log(e.target.classList)
-        success();
-        e.target.classList.toggle("fas");
-      };
-
-      const success = () => {
-        message.success('Recipe saved!');
       };
 
       return (
@@ -171,7 +132,7 @@ class App extends Component {
             ))}
             </div>
 
-
+            {/*
             <Modal
               title="Recipe Label"
               visible={this.state.visible}
@@ -180,6 +141,8 @@ class App extends Component {
             >
               <p></p>
             </Modal>
+            */}
+            
           </div>
           
         
